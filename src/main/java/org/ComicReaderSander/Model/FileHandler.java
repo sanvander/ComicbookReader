@@ -8,8 +8,6 @@ import java.nio.file.StandardCopyOption;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileHandler {
-    List<String> acceptedFileTypes = List.of("nhlcomic", "CBR", "CBZ");
-
 
 
     public static void importFile() {
@@ -19,37 +17,46 @@ public class FileHandler {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-
             File mapForAddedComic = createMapForComic(selectedFile.getName());
-            //addComicToMap(mapForAddedComic, selectedFile);
-
         } else {
             System.out.println("No files selected");
 
         }
     }
 
-    // Create a map for the comic, also returns the map to be able to add the comic to the map6
+    /**
+     * Creates a directory for a comic based on its name.
+     *
+     * This method calls the function to format the name of the comic file,
+     * and then creates a directory with the formatted name in the
+     * `src/main/resources/Comics` directory.
+     * Every comic will have his own map because some filetypes consist of multiple files.
+     * nhlcomic for example also contains a json file with the metadata of the comic.
+     * returns the created directory path so it can be used to add the comic to the map later
+     *
+     * @param name The name of the comic file, including its extension.
+     * @return A `File` object representing the created directory.
+     */
     public static File createMapForComic(String name) {
         // format name with selfmade function
         String formattedName = formatFileName(name);
 
         File comicDir = new File(String.format("src/main/resources/Comics/%s", formattedName));
-        comicDir.mkdir();
-
+        boolean directoryCreated = comicDir.mkdir();
+        if (directoryCreated) {
+            System.out.println("Directory created");
+        } else {
+            JOptionPane.showMessageDialog(null, "Comic with this title has already been added",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+        }
 
         return comicDir;
     }
 
 
-    // Add the comic to the map
-    public static void addComicToMap(File comicDir, File comicFile) {
-        try {
-        Files.copy(comicFile.toPath(), comicDir.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        }   catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
+
+
 
     /**
      * Removes the file extension from a filename.
@@ -92,5 +99,29 @@ public class FileHandler {
         fileChooser.setFileFilter(imageFilter);
         return fileChooser;
     }
+
+
+    /**
+     * Gets the file extension from a given file.
+     *
+     * This method extracts the file extension from the provided `File` object.
+     * It finds the last dot (.) in the file name and returns the substring
+     * following the dot as the file extension.
+     *
+     * @param file The `File` object from which to extract the file extension.
+     * @return A `String` representing the file extension, or an empty string if no extension is found.
+     */
+    public static String getFileType(File file) {
+        String fileName = file.getName();
+        int dotIndex = fileName.lastIndexOf(".");
+        return fileName.substring(dotIndex + 1);
+    }
+
+    public static void handleNhlcomicFile(){
+
+    }
+
+
+
 
 }

@@ -11,8 +11,9 @@ public class Main {
         ComicGIF comic = new ComicGIF();
         //comic.parseComic();
         //comic.extractZip();
-        FileHandler.importFile();
-        FileHandler.createMapForComic("X-Men 005 (2024) (digital) (Marika-Empire).cbz");
+        //FileHandler.importFile();
+        //FileHandler.createMapForComic("X-Men 005 (2024) (digital) (Marika-Empire).cbz");
+
         SimpleComicUI UI = new SimpleComicUI();
         UI.setVisible(true);
     }
