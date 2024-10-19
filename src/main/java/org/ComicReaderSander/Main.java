@@ -1,5 +1,6 @@
 package org.ComicReaderSander;
 
+import org.ComicReaderSander.Model.ComicLibrary;
 import org.ComicReaderSander.View.SimpleComicUI;
 import org.ComicReaderSander.Model.ComicNHLComic;
 
@@ -12,7 +13,7 @@ public class Main {
         //comic.extractZip();
         //FileHandler.importFile();
         //FileHandler.createMapForComic("X-Men 005 (2024) (digital) (Marika-Empire).cbz");
-
+        ComicLibrary.getAllComics();
         SimpleComicUI UI = new SimpleComicUI();
         UI.setVisible(true);
     }

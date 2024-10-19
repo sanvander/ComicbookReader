@@ -7,14 +7,14 @@ import java.io.IOException;
 public class ComicNHLComic extends Comic {
 
 	public ComicNHLComic(int ComicID, String Name, int NumberOfPages, int DisplayedPage, File FilePath) {
-		super(ComicID, Name, NumberOfPages, DisplayedPage, FilePath);
+		super(ComicID, Name, NumberOfPages, DisplayedPage, FilePath, "NHLComic");
 	}
 
 
 	public void parseComic() {
 	}
 
-	public void extractNHLcomicToDirectory(File file, File destDir) {
+	public void extractToDirectory(File file, File destDir) {
 		try (FileInputStream fileInputStream = new FileInputStream(file);
 			 ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);) {
 

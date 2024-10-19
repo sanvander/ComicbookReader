@@ -5,11 +5,14 @@ import java.io.File;
 public class ComicCBR extends Comic {
 
 	public ComicCBR(int ComicID, String Name, int NumberOfPages, int DisplayedPage, File FilePath) {
-		super(ComicID, Name, NumberOfPages, DisplayedPage, FilePath);
+		super(ComicID, Name, NumberOfPages, DisplayedPage, FilePath, "CBR");
 	}
 
 	public void parseComic() {
 
+	}
+
+	public void extractToDirectory(File file, File destDir) {
 	}
 
 }

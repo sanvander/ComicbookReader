@@ -14,12 +14,63 @@ public abstract class Comic {
 
 	private File filePath;
 
-	public Comic(int ComicID, String Name, int NumberOfPages, int DisplayedPage, File FilePath) {
+	private String fileType;
+
+	public Comic(int ComicID, String Name, int NumberOfPages, int DisplayedPage, File FilePath, String FileType) {
 		this.comicID = ComicID;
 		this.name = Name;
 		this.numberOfPages = NumberOfPages;
 		this.displayedPage = DisplayedPage;
 		this.filePath = FilePath;
+		this.fileType = FileType;
+	}
+
+	public int getComicID() {
+		return comicID;
+	}
+
+	public void setComicID(int comicID) {
+		this.comicID = comicID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getNumberOfPages() {
+		return numberOfPages;
+	}
+
+	public void setNumberOfPages(int numberOfPages) {
+		this.numberOfPages = numberOfPages;
+	}
+
+	public int getDisplayedPage() {
+		return displayedPage;
+	}
+
+	public void setDisplayedPage(int displayedPage) {
+		this.displayedPage = displayedPage;
+	}
+
+	public File getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(File filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
 	}
 
 	public void openComic(Comic comic) {
@@ -32,5 +83,6 @@ public abstract class Comic {
 	}
 
 	public abstract void parseComic();
+	public abstract void extractToDirectory(File file, File destDir);
 
 }

@@ -18,7 +18,7 @@ public class FileImporter {
             String fileType = FileImporter.getFileType(selectedFile);
 
             if (fileType.equals("nhlcomic")) {
-                handleNhlcomicFile(selectedFile);
+                handleNHLcomicFile(selectedFile);
             } else if (fileType.equals("cbz")) {
                 handleCBZFile(selectedFile);
             }
@@ -124,27 +124,27 @@ public class FileImporter {
         return fileName.substring(dotIndex + 1);
     }
 
-    public static void handleNhlcomicFile(File file){
+    public static void handleNHLcomicFile(File file){
         File mapForAddedComic = createMapForComic(file);
         ComicNHLComic comic = new ComicNHLComic(
-                Comic.GenerateComicID(),
+                Comic.GenerateComicID(), //TODO: create method that reads all comicIDS and generates an unique one
                 formatFileName(file.getName()),
                 0, //TODO: create method that returns pages
                 0,
                 mapForAddedComic);
-        comic.extractNHLcomicToDirectory(file, mapForAddedComic);
+        comic.extractToDirectory(file, mapForAddedComic);
 
     }
 
     public static void handleCBZFile(File file){
         File mapForAddedComic = createMapForComic(file);
-        ComicNHLComic comic = new ComicNHLComic(
+        ComicCBZ comic = new ComicCBZ(
                 Comic.GenerateComicID(),
                 formatFileName(file.getName()),
-                0, //TODO: create method that returns pages
+                0,
                 0,
                 mapForAddedComic);
-        comic.extractNHLcomicToDirectory(file, mapForAddedComic);
+        comic.extractToDirectory(file, mapForAddedComic);
 
     }
 
