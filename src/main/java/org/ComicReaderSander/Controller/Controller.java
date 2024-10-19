@@ -1,6 +1,6 @@
 package org.ComicReaderSander.Controller;
 
-import org.ComicReaderSander.Model.FileHandler;
+import org.ComicReaderSander.Model.FileImporter;
 
 public class Controller {
 
@@ -37,7 +37,7 @@ public class Controller {
 	}
 
 	public void handleImportComic(){
-		FileHandler.importFile();
+		FileImporter.importFile();
 	}
 
 }

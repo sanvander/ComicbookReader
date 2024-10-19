@@ -17,20 +17,28 @@ public class Homescreen extends JPanel {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         //Code for the import button
-        JButton importButton = new JButton("Import");
-        importButton.setPreferredSize(new Dimension(100, 150));
-        importButton.addActionListener(e -> controller.handleImportComic());
+        JButton importButton = addImportButton();
         add(importButton);
 
         //Code for the rectangles which in the future will be comics, for now just a placeholder
         for (int i = 0; i < 50; i++) {
             JPanel rectangle = new JPanel();
-            rectangle.setPreferredSize(new Dimension(100, 150)); // Set size of the "rectangle"
-            rectangle.setBackground(Color.GRAY); // Set background color to simulate a filled rectangle
+            rectangle.setPreferredSize(new Dimension(100, 150));
+            rectangle.setBackground(Color.GRAY);
+            rectangle.setLayout(new BorderLayout());
+
+            JLabel nameLabel = new JLabel("Comic " + (i + 1), SwingConstants.CENTER);
+            rectangle.add(nameLabel, BorderLayout.SOUTH);
+
             add(rectangle);
         }
+    }
 
-
+    public JButton addImportButton() {
+        JButton importButton = new JButton("Import");
+        importButton.setPreferredSize(new Dimension(100, 150));
+        importButton.addActionListener(e -> controller.handleImportComic());
+        return importButton;
     }
 
 
