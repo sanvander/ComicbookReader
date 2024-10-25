@@ -8,6 +8,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileImporter {
 
+    public FileImporter() {
+    }
+
+    // TODO: handleCBR
     public static void importFile() {
         // make a filechooser with selfmade function
         JFileChooser fileChooser = createFileChooser();
@@ -15,7 +19,7 @@ public class FileImporter {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            String fileType = FileImporter.getFileType(selectedFile);
+            String fileType = getFileType(selectedFile);
 
             if (fileType.equals("nhlcomic")) {
                 handleNHLcomicFile(selectedFile);
@@ -48,7 +52,7 @@ public class FileImporter {
         // format name with selfmade function
         String formattedName = formatFileName(file.getName());
 
-        String fileType = FileImporter.getFileType(file);
+        String fileType = getFileType(file);
         if (fileType.equals("nhlcomic")) {
             comicDir = new File(String.format("src/main/resources/Comics/NHLcomic/%s", formattedName));
         } else if (fileType.equals("cbz")) {
@@ -118,7 +122,7 @@ public class FileImporter {
      * @param file The `File` object from which to extract the file extension.
      * @return A `String` representing the file extension, or an empty string if no extension is found.
      */
-    public static String getFileType(File file) {
+    private static String getFileType(File file) {
         String fileName = file.getName();
         int dotIndex = fileName.lastIndexOf(".");
         return fileName.substring(dotIndex + 1);
@@ -127,24 +131,25 @@ public class FileImporter {
     public static void handleNHLcomicFile(File file){
         File mapForAddedComic = createMapForComic(file);
         ComicNHLComic comic = new ComicNHLComic(
-                Comic.GenerateComicID(), //TODO: create method that reads all comicIDS and generates an unique one
                 formatFileName(file.getName()),
                 0, //TODO: create method that returns pages
                 0,
-                mapForAddedComic);
+                mapForAddedComic.toString());
         comic.extractToDirectory(file, mapForAddedComic);
+        System.out.println(comic.getName());
+        ComicNHLComicRepo.insertComic(comic);
 
     }
 
     public static void handleCBZFile(File file){
         File mapForAddedComic = createMapForComic(file);
         ComicCBZ comic = new ComicCBZ(
-                Comic.GenerateComicID(),
                 formatFileName(file.getName()),
                 0,
                 0,
-                mapForAddedComic);
+                mapForAddedComic.toString());
         comic.extractToDirectory(file, mapForAddedComic);
+        ComicCBZRepo.insertComic(comic);
 
     }
 

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public abstract class Comic {
 
-	private int comicID;
+	private Integer comicID;
 
 	private String name;
 
@@ -12,12 +12,20 @@ public abstract class Comic {
 
 	private int displayedPage;
 
-	private File filePath;
+	private String filePath;
 
 	private String fileType;
 
-	public Comic(int ComicID, String Name, int NumberOfPages, int DisplayedPage, File FilePath, String FileType) {
+	public Comic(Integer ComicID, String Name, int NumberOfPages, int DisplayedPage, String FilePath, String FileType) {
 		this.comicID = ComicID;
+		this.name = Name;
+		this.numberOfPages = NumberOfPages;
+		this.displayedPage = DisplayedPage;
+		this.filePath = FilePath;
+		this.fileType = FileType;
+	}
+
+	public Comic(String Name, int NumberOfPages, int DisplayedPage, String FilePath, String FileType) {
 		this.name = Name;
 		this.numberOfPages = NumberOfPages;
 		this.displayedPage = DisplayedPage;
@@ -57,11 +65,11 @@ public abstract class Comic {
 		this.displayedPage = displayedPage;
 	}
 
-	public File getFilePath() {
+	public String getFilePath() {
 		return filePath;
 	}
 
-	public void setFilePath(File filePath) {
+	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
 

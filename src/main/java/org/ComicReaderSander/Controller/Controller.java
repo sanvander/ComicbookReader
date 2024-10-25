@@ -4,6 +4,8 @@ import org.ComicReaderSander.Model.FileImporter;
 
 public class Controller {
 
+
+
 	public void startup() {
 
 	}

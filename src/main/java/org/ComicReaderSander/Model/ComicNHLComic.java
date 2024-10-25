@@ -6,8 +6,11 @@ import java.io.IOException;
 
 public class ComicNHLComic extends Comic {
 
-	public ComicNHLComic(int ComicID, String Name, int NumberOfPages, int DisplayedPage, File FilePath) {
+	public ComicNHLComic(int ComicID, String Name, int NumberOfPages, int DisplayedPage, String FilePath) {
 		super(ComicID, Name, NumberOfPages, DisplayedPage, FilePath, "NHLComic");
+	}
+	public ComicNHLComic(String Name, int NumberOfPages, int DisplayedPage, String FilePath) {
+		super(Name, NumberOfPages, DisplayedPage, FilePath, "NHLComic");
 	}
 
 

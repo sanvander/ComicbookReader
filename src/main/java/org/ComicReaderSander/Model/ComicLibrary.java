@@ -1,15 +1,18 @@
 package org.ComicReaderSander.Model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class ComicLibrary implements IComicLibraryServices {
 
 
-public class ComicLibrary implements IComicServices {
-
-
-
-
-	public static void getAllComics() {
-
+	public List<Comic> getAllComics() {
+		List<Comic> allComics = new ArrayList<Comic>();
+        allComics.addAll(ComicNHLComicRepo.getAllComics());
+		allComics.addAll(ComicCBZRepo.getAllComics());
+		allComics.addAll(ComicCBRRepo.getAllComics());
+		return allComics;
 	}
 
 
