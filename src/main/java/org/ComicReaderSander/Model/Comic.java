@@ -1,5 +1,8 @@
 package org.ComicReaderSander.Model;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Comic {
@@ -15,6 +18,7 @@ public abstract class Comic {
 	private String filePath;
 
 	private String fileType;
+
 
 	public Comic(Integer ComicID, String Name, int NumberOfPages, int DisplayedPage, String FilePath, String FileType) {
 		this.comicID = ComicID;
@@ -81,16 +85,8 @@ public abstract class Comic {
 		this.fileType = fileType;
 	}
 
-	public void openComic(Comic comic) {
-
-	}
-
-	public static int GenerateComicID() {
-		Random rand = new Random();
-		return rand.nextInt(1000000);
-	}
-
 	public abstract void parseComic();
 	public abstract void extractToDirectory(File file, File destDir);
+	public abstract List<BufferedImage> getFrames(Comic comic);
 
 }

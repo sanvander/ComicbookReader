@@ -77,11 +77,24 @@ public class ComicNHLComicRepo {
         return comicList;
     }
 
+    public static void deleteAllComics() {
+        String sql = "DELETE FROM ComicNHLComic;";
+        try (Connection connection = SQLite.connect();
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-
-
-
-
-
+    public static void deleteComic(Comic comic) {
+        String sql = "DELETE FROM ComicNHLComic WHERE name = '" + comic.getName() + "';";
+        try (Connection connection = SQLite.connect();
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

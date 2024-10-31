@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class SQLite {
     public static Connection connect() {
         Connection connection = null;
-        String path = "jdbc:sqlite:src/main/resources/Comics/comic.db";
+        String path = "jdbc:sqlite:src/main/resources/comic.db";
         try {
             connection = DriverManager.getConnection(path);
         } catch (SQLException e) {
@@ -16,6 +16,4 @@ public class SQLite {
 
         return connection;
     }
-
-
 }

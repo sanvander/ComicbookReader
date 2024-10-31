@@ -53,7 +53,7 @@ public class ComicCBZRepo {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                ComicNHLComic comicToAdd = new ComicNHLComic(
+                ComicCBZ comicToAdd = new ComicCBZ(
                         rs.getString("name"),
                         rs.getInt("numberOfPages"),
                         rs.getInt("displayedPage"),
@@ -67,5 +67,25 @@ public class ComicCBZRepo {
             System.out.println(e.getMessage());
         }
         return comicList;
+    }
+
+    public static void deleteAllComics() {
+        String sql = "DELETE FROM ComicCBZ;";
+        try (Connection connection = SQLite.connect();
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void deleteComic(Comic comic) {
+        String sql = "DELETE FROM ComicCBZ WHERE name = '" + comic.getName() + "';";
+        try (Connection connection = SQLite.connect();
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

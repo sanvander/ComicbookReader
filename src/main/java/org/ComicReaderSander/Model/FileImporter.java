@@ -6,13 +6,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
-public class FileImporter {
+public class FileImporter implements IFileImporterServices {
 
     public FileImporter() {
     }
 
-    // TODO: handleCBR
-    public static void importFile() {
+    public void importFile() {
         // make a filechooser with selfmade function
         JFileChooser fileChooser = createFileChooser();
         int result = fileChooser.showOpenDialog(null);
@@ -25,8 +24,9 @@ public class FileImporter {
                 handleNHLcomicFile(selectedFile);
             } else if (fileType.equals("cbz")) {
                 handleCBZFile(selectedFile);
+            } else if (fileType.equals("cbr")) {
+                handleCBRFile(selectedFile);
             }
-
 
 
         } else {
@@ -47,7 +47,7 @@ public class FileImporter {
      * @param file The comic file
      * @return A `File` object representing the created directory.
      */
-    public static File createMapForComic(File file) {
+    public File createMapForComic(File file) {
         File comicDir;
         // format name with selfmade function
         String formattedName = formatFileName(file.getName());
@@ -83,7 +83,7 @@ public class FileImporter {
      * @param name The original filename, including extension.
      * @return The filename without the extension.
      */
-    public static String formatFileName(String name) {
+    public String formatFileName(String name) {
         String strippedName;
         // get the index of the last . in the file name
         int dotIndex = name.lastIndexOf(".");
@@ -104,7 +104,7 @@ public class FileImporter {
      *
      * @return A JFileChooser instance that displays only files of specified filetypes.
      */
-    public static JFileChooser createFileChooser() {
+    public JFileChooser createFileChooser() {
         JFileChooser fileChooser = new JFileChooser();
         // Create a filter to only show files of the specified filetypes
         // After that add the filter to the filechooser
@@ -122,13 +122,13 @@ public class FileImporter {
      * @param file The `File` object from which to extract the file extension.
      * @return A `String` representing the file extension, or an empty string if no extension is found.
      */
-    private static String getFileType(File file) {
+    public String getFileType(File file) {
         String fileName = file.getName();
         int dotIndex = fileName.lastIndexOf(".");
         return fileName.substring(dotIndex + 1);
     }
 
-    public static void handleNHLcomicFile(File file){
+    public void handleNHLcomicFile(File file){
         File mapForAddedComic = createMapForComic(file);
         ComicNHLComic comic = new ComicNHLComic(
                 formatFileName(file.getName()),
@@ -136,12 +136,13 @@ public class FileImporter {
                 0,
                 mapForAddedComic.toString());
         comic.extractToDirectory(file, mapForAddedComic);
+        comic.parseComic();
         System.out.println(comic.getName());
         ComicNHLComicRepo.insertComic(comic);
 
     }
 
-    public static void handleCBZFile(File file){
+    public void handleCBZFile(File file){
         File mapForAddedComic = createMapForComic(file);
         ComicCBZ comic = new ComicCBZ(
                 formatFileName(file.getName()),
@@ -150,7 +151,19 @@ public class FileImporter {
                 mapForAddedComic.toString());
         comic.extractToDirectory(file, mapForAddedComic);
         ComicCBZRepo.insertComic(comic);
+    }
 
+    public void handleCBRFile(File file){
+        File mapForAddedComic = createMapForComic(file);
+        ComicCBR comic = new ComicCBR(
+                formatFileName(file.getName()),
+                0,
+                0,
+                mapForAddedComic.toString());
+        System.out.println("Trying CBR");
+        System.out.println(mapForAddedComic.toString());
+        comic.extractToDirectory(file, mapForAddedComic);
+        ComicCBRRepo.insertComic(comic);
     }
 
 

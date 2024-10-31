@@ -5,9 +5,8 @@ import org.ComicReaderSander.Model.*;
 import org.ComicReaderSander.Model.SQLite;
 import org.ComicReaderSander.View.SimpleComicUI;
 import org.ComicReaderSander.Model.ComicNHLComic;
+import org.ComicReaderSander.Controller.Controller;
 
-
-//TODO: voor alle comic repos een get all statement maken.
 
 public class Main {
 
@@ -17,14 +16,15 @@ public class Main {
         ComicCBRRepo.createTable();
         ComicCBZRepo.createTable();
 
+        IComicLibraryServices comicLibrary = new ComicLibrary();
+        SimpleComicUI view = new SimpleComicUI();
+        FileImporter fileImporter = new FileImporter();
+        Controller controller = new Controller(view, comicLibrary, fileImporter);
+        view.setController(controller);
 
-        ComicLibrary comicLibrary = new ComicLibrary();
-        for (Comic comic : comicLibrary.getAllComics()) {
-            System.out.println(comic.getName());
-        }
-        //ComicNHLComicRepo.getAllNHLComics();
+        view.showHomescreen();
 
-        //SimpleComicUI UI = new SimpleComicUI();
-        //UI.setVisible(true);
+
+
     }
 }
